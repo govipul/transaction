@@ -24,12 +24,12 @@ public class TransactionController {
 	private TransactionService service;
 
 	@PostMapping(value = "/transactions")
-	public ResponseEntity<?> addTransaction(@RequestBody Transaction transaction) {
+	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction) {
 		LOG.info("Amount {}, Timestamp: {}", transaction.getAmount(), transaction.getTimeStamp());
 		if (transaction.getAmount() > 0 && service.addTransaction(transaction)) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(transaction, HttpStatus.NO_CONTENT);
 	}
 
 	@GetMapping("/statistics")
