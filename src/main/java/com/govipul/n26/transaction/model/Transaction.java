@@ -2,20 +2,31 @@ package com.govipul.n26.transaction.model;
 
 public class Transaction {
 
-	private final double amount;
-	private final long timeStamp;
+	private double amount;
+	private long timeStamp;
+
+	public Transaction() {
+
+	}
 
 	public Transaction(double amount, long timeStamp) {
-		super();
 		this.amount = amount;
 		this.timeStamp = timeStamp;
 	}
 
-	public double getAmount() {
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	public Double getAmount() {
 		return amount;
 	}
 
-	public long getTimeStamp() {
+	public Long getTimeStamp() {
 		return timeStamp;
 	}
 }
