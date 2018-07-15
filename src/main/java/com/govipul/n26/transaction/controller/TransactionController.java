@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.govipul.n26.transaction.exception.TransactionException;
 import com.govipul.n26.transaction.model.Transaction;
 import com.govipul.n26.transaction.model.TransactionStatics;
 import com.govipul.n26.transaction.service.TransactionService;
@@ -24,12 +25,15 @@ public class TransactionController {
 	private TransactionService service;
 
 	@PostMapping(value = "/transactions")
-	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction) {
+	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction)
+			throws TransactionException {
 		LOG.info("Amount {}, Timestamp: {}", transaction.getAmount(), transaction.getTimeStamp());
 		if (transaction.getAmount() > 0 && service.addTransaction(transaction)) {
 			return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+		} else {
+			throw new TransactionException("Invalid data");
 		}
-		return new ResponseEntity<>(transaction, HttpStatus.NO_CONTENT);
+
 	}
 
 	@GetMapping("/statistics")
