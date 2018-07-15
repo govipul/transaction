@@ -60,8 +60,9 @@ public class TransactionServiceImplTest {
 
 	@Test
 	public void testGetStatistics_validate_data() {
+		service.addTransaction(transactionNow);
 		TransactionStatics statistics = service.getStatistics();
-		assertTrue(statistics.getCount() > 1);
+		assertTrue(statistics.getCount() >= 1);
 		assertEquals(750d, statistics.getMax(), 0);
 
 	}
